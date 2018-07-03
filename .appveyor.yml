@@ -1,11 +1,10 @@
 skip_tags: true
 cache:
-  - C:\strawberry\perl\site
 install:
-  - cinst strawberryperl
-  - set PATH=C:\strawberry\perl\bin;C:\strawberry\perl\site\bin;C:\strawberry\c\bin;%PATH%
-  - cd C:\projects\%APPVEYOR_PROJECT_NAME%
-  - cpanm NML/Danga-Socket-1.62-TRIAL.tar.gz NML/Proc-Guard-0.07_01.tar.gz
-  - cpanm --installdeps .
+  - cinst strawberryperl --version 5.24.0.1
+  - set PATH=C:\strawberry\perl\site\bin;C:\strawberry\perl\vendor\bin;C:\strawberry\perl\bin;C:\strawberry\c\bin;%PATH%
+  - cpanm --notest Test::Simple NML/Danga-Socket-1.62_01-TRIAL.tar.gz NML/Proc-Guard-0.07_01.tar.gz
+  - cpanm --installdeps --notest .
 build_script:
+  - perl -Ilib t/03-maxqueue.t
   - cpanm -v --test-only .
